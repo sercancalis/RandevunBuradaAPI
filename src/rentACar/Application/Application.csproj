@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Features\Cars\Rules\**" />
+    <EmbeddedResource Remove="Features\Cars\Rules\**" />
+    <None Remove="Features\Cars\Rules\**" />
+    <None Remove="Features\Accounting\Queries\" />
+    <None Remove="Features\Accounting\Queries\GetList\" />
+    <None Remove="Services\Repositories\" />
+    <None Remove="Features\" />
+    <None Remove="Features\Haidresser\" />
+    <None Remove="Features\Haidresser\Commands\" />
+    <None Remove="Features\Haidresser\GetList\" />
+    <None Remove="Features\Haidresser\Profiles\" />
+    <None Remove="Features\Users\" />
+    <None Remove="Features\Users\Profiles\" />
+    <None Remove="Services\ImageService\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcers\Core.CrossCuttingConcerns.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.ElasticSearch\Core.ElasticSearch.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Mailing\Core.Mailing.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="12.0.0" />
+    <PackageReference Include="Hangfire" Version="1.8.14" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.14" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Repositories\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\Haidresser\" />
+    <Folder Include="Features\Haidresser\Commands\" />
+    <Folder Include="Features\Haidresser\GetList\" />
+    <Folder Include="Features\Haidresser\Profiles\" />
+    <Folder Include="Features\Users\" />
+    <Folder Include="Features\Users\Profiles\" />
+    <Folder Include="Services\ImageService\" />
+  </ItemGroup>
+</Project>
