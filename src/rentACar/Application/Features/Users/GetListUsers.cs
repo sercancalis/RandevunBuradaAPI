@@ -24,15 +24,13 @@ public class GetListUsers : IRequest<GetListResponse<GetListUsersResponse>>, ICa
     public TimeSpan? SlidingExpiration { get; }
 
     public class GetListUsersHandler : IRequestHandler<GetListUsers, GetListResponse<GetListUsersResponse>>
-    {
-        private readonly IHairdresserRepository _hairdresserRepository;
+    { 
         private readonly IConfiguration configuration;
         private readonly IMapper _mapper;
 
-        public GetListUsersHandler(IMapper mapper, IHairdresserRepository hairdresserRepository, IConfiguration configuration)
+        public GetListUsersHandler(IMapper mapper, IConfiguration configuration)
         {
-            _mapper = mapper;
-            _hairdresserRepository = hairdresserRepository;
+            _mapper = mapper; 
             this.configuration = configuration;
         }
 

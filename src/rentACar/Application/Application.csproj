@@ -14,13 +14,28 @@
     <None Remove="Features\Accounting\Queries\GetList\" />
     <None Remove="Services\Repositories\" />
     <None Remove="Features\" />
-    <None Remove="Features\Haidresser\" />
-    <None Remove="Features\Haidresser\Commands\" />
-    <None Remove="Features\Haidresser\GetList\" />
-    <None Remove="Features\Haidresser\Profiles\" />
     <None Remove="Features\Users\" />
     <None Remove="Features\Users\Profiles\" />
     <None Remove="Services\ImageService\" />
+    <None Remove="Features\Employees\" />
+    <None Remove="Features\Employees\Commands\" />
+    <None Remove="Features\Employees\Commands\Create\" />
+    <None Remove="Features\Employees\Rules\" />
+    <None Remove="Features\Employees\Constants\" />
+    <None Remove="Features\Employees\Commands\Update\" />
+    <None Remove="Features\Employees\Queries\" />
+    <None Remove="Features\Employees\Queries\GetList\" />
+    <None Remove="Features\Employees\Profiles\" />
+    <None Remove="Features\Business\" />
+    <None Remove="Features\Business\Commands\" />
+    <None Remove="Features\Business\Commands\Create\" />
+    <None Remove="Features\Business\Constants\" />
+    <None Remove="Features\Business\Rules\" />
+    <None Remove="Features\Business\Commands\Update\" />
+    <None Remove="Features\Business\Queries\" />
+    <None Remove="Features\Business\Queries\GetList\" />
+    <None Remove="Features\Business\Profiles\" />
+    <None Remove="Services\WorkingHourService\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,12 +58,27 @@
   <ItemGroup>
     <Folder Include="Services\Repositories\" />
     <Folder Include="Features\" />
-    <Folder Include="Features\Haidresser\" />
-    <Folder Include="Features\Haidresser\Commands\" />
-    <Folder Include="Features\Haidresser\GetList\" />
-    <Folder Include="Features\Haidresser\Profiles\" />
     <Folder Include="Features\Users\" />
     <Folder Include="Features\Users\Profiles\" />
     <Folder Include="Services\ImageService\" />
+    <Folder Include="Features\Employees\" />
+    <Folder Include="Features\Employees\Commands\" />
+    <Folder Include="Features\Employees\Commands\Create\" />
+    <Folder Include="Features\Employees\Rules\" />
+    <Folder Include="Features\Employees\Constants\" />
+    <Folder Include="Features\Employees\Commands\Update\" />
+    <Folder Include="Features\Employees\Queries\" />
+    <Folder Include="Features\Employees\Queries\GetList\" />
+    <Folder Include="Features\Employees\Profiles\" />
+    <Folder Include="Features\Business\" />
+    <Folder Include="Features\Business\Commands\" />
+    <Folder Include="Features\Business\Commands\Create\" />
+    <Folder Include="Features\Business\Constants\" />
+    <Folder Include="Features\Business\Rules\" />
+    <Folder Include="Features\Business\Commands\Update\" />
+    <Folder Include="Features\Business\Queries\" />
+    <Folder Include="Features\Business\Queries\GetList\" />
+    <Folder Include="Features\Business\Profiles\" />
+    <Folder Include="Services\WorkingHourService\" />
   </ItemGroup>
 </Project>

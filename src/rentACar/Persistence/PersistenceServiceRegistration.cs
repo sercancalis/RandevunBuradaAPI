@@ -10,12 +10,15 @@ namespace Persistence;
 public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
-    {  
+    {
         services.AddDbContext<BaseDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("RentACarConnectionString"), b => b.MigrationsAssembly("WebAPI"))
         );
 
-        services.AddScoped<IHairdresserRepository, HairdresserRepository>();
+        services.AddScoped<IBusinessRepository, BusinessRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IBusinessImageRepository, BusinessImageRepository>();
+        services.AddScoped<IWorkingHourRepository, WorkingHourRepository>();
 
         return services;
     }

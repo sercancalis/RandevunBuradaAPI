@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Services.WorkingHourService;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
@@ -35,7 +36,9 @@ public static class ApplicationServiceRegistration
         services.AddSubClassesOfType(Assembly.GetExecutingAssembly(), typeof(BaseBusinessRules));
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-          
+
+        services.AddScoped<IWorkingHourService, WorkingHourManager>();
+
         services.AddSingleton<IMailService, MailKitMailService>();
         services.AddSingleton<LoggerServiceBase, FileLogger>();
         services.AddSingleton<IElasticSearch, ElasticSearchManager>();

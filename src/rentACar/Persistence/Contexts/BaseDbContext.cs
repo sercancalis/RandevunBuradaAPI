@@ -10,7 +10,10 @@ namespace Persistence.Contexts;
 public class BaseDbContext : DbContext
 {
     protected IConfiguration Configuration { get; set; }
-    public DbSet<Hairdresser> Hairdressers { get; set; }
+    public DbSet<Business> Businesses { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+    public DbSet<BusinessImage> BusinessImages { get; set; }
+    public DbSet<WorkingHour> WorkingHours { get; set; }
 
     public BaseDbContext(IConfiguration config)
     {
@@ -29,12 +32,28 @@ public class BaseDbContext : DbContext
             .Entries<Entity>()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
 
+        //foreach (EntityEntry<Entity> entry in entries)
+        //    _ = entry.State switch
+        //    {
+        //        EntityState.Added => entry.Entity.CreatedDate = DateTime.UtcNow,
+        //        EntityState.Modified => entry.Entity.UpdatedDate = DateTime.UtcNow
+        //    };
+
         foreach (EntityEntry<Entity> entry in entries)
-            _ = entry.State switch
+        {
+            switch (entry.State)
             {
-                EntityState.Added => entry.Entity.CreatedDate = DateTime.UtcNow,
-                EntityState.Modified => entry.Entity.UpdatedDate = DateTime.UtcNow
-            };
+                case EntityState.Added:
+                    entry.Entity.CreatedDate = DateTime.UtcNow;
+                    entry.Entity.IsActive = true;
+                    break;
+
+                case EntityState.Modified:
+                    entry.Entity.UpdatedDate = DateTime.UtcNow;
+                    break;
+            }
+        }
+
         return await base.SaveChangesAsync(cancellationToken);
     }
 
