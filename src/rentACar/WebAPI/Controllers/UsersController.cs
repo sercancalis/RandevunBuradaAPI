@@ -17,10 +17,10 @@ namespace WebAPI.Controllers;
 public class UsersController : BaseController
 {
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+    public async Task<IActionResult> GetList([FromQuery] List<string> userIds)
     {
-        GetListUsers res = new() { PageRequest = pageRequest };
-        GetListResponse<GetListUsersResponse> result = await Mediator.Send(res);
+        GetListUsers res = new() { UserIds = userIds };
+        List<GetListUsersResponse> result = await Mediator.Send(res);
         return Ok(result);
     }
 }

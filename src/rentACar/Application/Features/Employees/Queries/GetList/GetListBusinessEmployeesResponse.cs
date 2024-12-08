@@ -1,4 +1,6 @@
 ﻿using System;
+using Application.Features.Users;
+
 namespace Application.Features.Employees.Queries.GetList
 {
     public class GetListBusinessEmployeesResponse
@@ -10,6 +12,8 @@ namespace Application.Features.Employees.Queries.GetList
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+
+        public GetListUsersResponse UserInfo { get; set; }
     }
 }
 

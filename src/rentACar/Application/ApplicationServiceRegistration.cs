@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Services.User;
 using Application.Services.WorkingHourService;
 using Core.Application.Pipelines.Authorization;
 using Core.Application.Pipelines.Caching;
@@ -38,6 +39,7 @@ public static class ApplicationServiceRegistration
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IWorkingHourService, WorkingHourManager>();
+        services.AddScoped<IUserService, UserManager>();
 
         services.AddSingleton<IMailService, MailKitMailService>();
         services.AddSingleton<LoggerServiceBase, FileLogger>();

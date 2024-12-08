@@ -33,9 +33,9 @@ public class EmployeesController : BaseController
     }
 
     [HttpGet("GetBussinessEmployees")]
-    public async Task<IActionResult> GetBussinessEmployees()
+    public async Task<IActionResult> GetBussinessEmployees([FromQuery] int businessId)
     { 
-        GetBussinessEmployees res = new() { };
+        GetBussinessEmployees res = new() { BusinessId = businessId };
         GetListResponse<GetListBusinessEmployeesResponse> result = await Mediator.Send(res);
         return Ok(result);
     }

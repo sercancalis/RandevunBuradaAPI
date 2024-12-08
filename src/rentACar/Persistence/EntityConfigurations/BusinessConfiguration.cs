@@ -11,6 +11,7 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Business>
     {
         builder.ToTable("Businesses").HasKey(k => k.Id);
         builder.Property(p => p.Id).HasColumnName("Id");
+        builder.Property(p => p.Category).HasColumnName("Category");
         builder.Property(p => p.Name).HasColumnName("Name");
         builder.Property(p => p.Latitude).HasColumnName("Latitude");
         builder.Property(p => p.Longitude).HasColumnName("Longitude");

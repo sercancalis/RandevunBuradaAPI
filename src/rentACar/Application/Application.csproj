@@ -36,6 +36,8 @@
     <None Remove="Features\Business\Queries\GetList\" />
     <None Remove="Features\Business\Profiles\" />
     <None Remove="Services\WorkingHourService\" />
+    <None Remove="Services\User\" />
+    <None Remove="Features\Business\Models\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,5 +82,7 @@
     <Folder Include="Features\Business\Queries\GetList\" />
     <Folder Include="Features\Business\Profiles\" />
     <Folder Include="Services\WorkingHourService\" />
+    <Folder Include="Services\User\" />
+    <Folder Include="Features\Business\Models\" />
   </ItemGroup>
 </Project>

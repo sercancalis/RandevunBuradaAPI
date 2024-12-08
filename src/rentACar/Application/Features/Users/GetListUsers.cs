@@ -1,101 +1,32 @@
-﻿using System;
-using System.Net.Http.Headers;
-using Application.Features.Users;
-using Application.Services.Repositories;
-using AutoMapper;
-using Core.Application.Pipelines.Caching;
-using Core.Application.Requests;
-using Core.Application.Responses;
-using Core.Persistence.Paging;
-using Domain.Entities;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Application.Features.Users; 
+using Application.Services.User; 
+using Core.Application.Pipelines.Caching; 
+using MediatR; 
 
 namespace Application.Features.Haidresser.GetList;
 
-public class GetListUsers : IRequest<GetListResponse<GetListUsersResponse>>, ICachableRequest
+public class GetListUsers : IRequest<List<GetListUsersResponse>>, ICachableRequest
 {
-    public PageRequest PageRequest { get; set; }
+    public List<string> UserIds { get; set; }
 
     public bool BypassCache { get; }
-    public string CacheKey => $"GetListUsers({PageRequest.Page},{PageRequest.PageSize})";
+    public string CacheKey => $"GetListUsers({string.Join(",",UserIds)})";
     public string CacheGroupKey => "GetListUsers";
     public TimeSpan? SlidingExpiration { get; }
 
-    public class GetListUsersHandler : IRequestHandler<GetListUsers, GetListResponse<GetListUsersResponse>>
-    { 
-        private readonly IConfiguration configuration;
-        private readonly IMapper _mapper;
+    public class GetListUsersHandler : IRequestHandler<GetListUsers, List<GetListUsersResponse>>
+    {  
+        private readonly IUserService _userService;
 
-        public GetListUsersHandler(IMapper mapper, IConfiguration configuration)
-        {
-            _mapper = mapper; 
-            this.configuration = configuration;
+        public GetListUsersHandler(IUserService userService)
+        {  
+            _userService = userService;
         }
 
-        public async Task<GetListResponse<GetListUsersResponse>> Handle(GetListUsers request,CancellationToken cancellationToken)
+        public async Task<List<GetListUsersResponse>> Handle(GetListUsers request,CancellationToken cancellationToken)
         {
-            var apiKey = configuration.GetSection("Clerk:ApiKey").Get<string>();
-            var client = new HttpClient();
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-
-            var totalCount = await GetTotalUserCount(apiKey);
-            var response = await client.GetAsync($"https://api.clerk.com/v1/users?limit={request.PageRequest.PageSize}&offset={(request.PageRequest.Page - 1) * request.PageRequest.PageSize}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var userResponse = JsonConvert.DeserializeObject<List<GetListUsersResponse>>(content);
-
-                var totalPages = (int)Math.Ceiling((double)totalCount / request.PageRequest.PageSize);
-                var hasNext = request.PageRequest.Page < totalPages;
-                var hasPrevious = request.PageRequest.Page > 1;
-
-
-                var res = new GetListResponse<GetListUsersResponse>()
-                {
-                    Count = totalCount, 
-                    Items = userResponse,  
-                    Pages = totalPages, 
-                    Index = request.PageRequest.Page, 
-                    Size = request.PageRequest.PageSize,  
-                    HasNext = hasNext, 
-                    HasPrevious = hasPrevious
-                };
-                return res;
-            }
-            else
-            {
-                return null;
-            }
-
-        }
-
-        class UsersCount
-        {
-            public string @object { get; set; }
-            public int total_count { get; set; }
-        }
-
-
-        private async Task<int> GetTotalUserCount(string apiKey)
-        {
-            var client = new HttpClient();
-
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-
-            var response = await client.GetAsync($"https://api.clerk.com/v1/users/count");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var res = JsonConvert.DeserializeObject<UsersCount>(content);
-                return res.total_count;
-            }
-            return 0;
-        }
+            return await _userService.GetListUser(request.UserIds);
+        } 
     }
 }
 

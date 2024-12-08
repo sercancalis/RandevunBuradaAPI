@@ -21,10 +21,17 @@ namespace WebAPI.Controllers;
 public class BusinessesController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] CreateBusinessCommand command)
+    public async Task<IActionResult> Create([FromForm] CreateBusinessCommand command)
     {
-        CreateBusinessResponse result = await Mediator.Send(command);
-        return Ok(result);
+        try
+        {
+            bool result = await Mediator.Send(command);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return Ok(ex.Message);
+        }
     }
 
     [HttpPut]
