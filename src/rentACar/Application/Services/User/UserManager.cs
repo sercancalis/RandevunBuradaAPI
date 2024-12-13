@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using Application.Features.Users;
 using Microsoft.Extensions.Configuration;
@@ -67,6 +68,35 @@ namespace Application.Services.User
                 return res.total_count;
             }
             return 0; 
+        }
+
+        public async Task SetUserRole(string userId, string role)
+        {
+            var apiKey = configuration.GetSection("Clerk:ApiKey").Get<string>();
+            var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+            var content = new StringContent(
+                 JsonSerializer.Serialize(new
+                 {
+                     public_metadata = new
+                     {
+                         role = role
+                     }
+                 }),
+                 Encoding.UTF8,
+                 "application/json"
+             );
+
+            var response = await client.PatchAsync($"https://api.clerk.com/v1/users/{userId}", content);
+
+            // Başarı kontrolü
+            if (!response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($"Failed to set user role. Status Code: {response.StatusCode}, Response: {responseContent}");
+            }
         }
     }
 }

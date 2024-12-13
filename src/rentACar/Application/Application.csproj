@@ -38,6 +38,7 @@
     <None Remove="Services\WorkingHourService\" />
     <None Remove="Services\User\" />
     <None Remove="Features\Business\Models\" />
+    <None Remove="Features\Users\Command\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -84,5 +85,6 @@
     <Folder Include="Services\WorkingHourService\" />
     <Folder Include="Services\User\" />
     <Folder Include="Features\Business\Models\" />
+    <Folder Include="Features\Users\Command\" />
   </ItemGroup>
 </Project>

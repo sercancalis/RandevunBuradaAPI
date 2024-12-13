@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Features.Haidresser.GetList;
 using Application.Features.Users;
+using Application.Features.Users.Commands;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,13 @@ public class UsersController : BaseController
     {
         GetListUsers res = new() { UserIds = userIds };
         List<GetListUsersResponse> result = await Mediator.Send(res);
+        return Ok(result);
+    }
+
+    [HttpPost("UpdateRole")]
+    public async Task<IActionResult> UpdateRole(UpdateRoleCommand command)
+    { 
+        bool result = await Mediator.Send(command);
         return Ok(result);
     }
 }
