@@ -15,7 +15,7 @@ namespace Application.Services.WorkingHourService
         }
 
         public async Task SaveWorkingHours(List<WorkingHour> workingHours)
-        {
+        { 
             var businessId = workingHours.FirstOrDefault()?.BusinessId;
             if (businessId == null)
                 throw new BusinessException("İşletme Bilgisi bulunamadı");
@@ -59,7 +59,7 @@ namespace Application.Services.WorkingHourService
                 }
 
                 await _workingHourRepository.UpdateRangeAsync(existingHours.Items);
-            }
+            } 
         }
     }
 }

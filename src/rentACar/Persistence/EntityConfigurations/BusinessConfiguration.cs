@@ -11,6 +11,7 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Business>
     {
         builder.ToTable("Businesses").HasKey(k => k.Id);
         builder.Property(p => p.Id).HasColumnName("Id");
+        builder.Property(p => p.UserId).HasColumnName("UserId");
         builder.Property(p => p.Category).HasColumnName("Category");
         builder.Property(p => p.Name).HasColumnName("Name");
         builder.Property(p => p.Latitude).HasColumnName("Latitude");
@@ -25,6 +26,6 @@ public class BusinessConfiguration : IEntityTypeConfiguration<Business>
         builder.HasMany(p => p.BusinessImages).WithOne(p => p.Business).HasForeignKey(p => p.BusinessId).IsRequired();
         builder.HasMany(p => p.WorkingHours).WithOne(p => p.Business).HasForeignKey(p => p.BusinessId).IsRequired();
 
-        builder.HasIndex(indexExpression: p => p.Name, name: "UK_Businesses_Name");
+        builder.HasIndex(indexExpression: p => p.UserId, name: "UK_UserId");
     }
 }

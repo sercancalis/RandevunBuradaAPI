@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Features.Business.Commands.Create;
 using Application.Features.Business.Commands.Update;
+using Application.Features.Business.Queries.Get;
 using Application.Features.Business.Queries.GetList;
 using Application.Features.Employees.Commands.Create;
 using Application.Features.Employees.Commands.Update;
@@ -23,15 +24,8 @@ public class BusinessesController : BaseController
     [HttpPost]
     public async Task<IActionResult> Create([FromForm] CreateBusinessCommand command)
     {
-        try
-        {
-            bool result = await Mediator.Send(command);
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return Ok(ex.Message);
-        }
+        bool result = await Mediator.Send(command);
+        return Ok(result);
     }
 
     [HttpPut]
@@ -46,6 +40,13 @@ public class BusinessesController : BaseController
     {
         GetListBusiness res = new() { PageRequest = pageRequest };
         GetListResponse<GetListBusinessResponse> result = await Mediator.Send(res);
+        return Ok(result);
+    }
+
+    [HttpPost("GetBusinessByUserId")]
+    public async Task<IActionResult> GetBusinessByUserId([FromBody] GetBusinessByUserId request)
+    {
+        GetBusinessResponse result = await Mediator.Send(request);
         return Ok(result);
     }
 }

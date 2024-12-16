@@ -40,11 +40,12 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IWorkingHourService, WorkingHourManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddHttpClient<IUserService, UserManager>();
 
         services.AddSingleton<IMailService, MailKitMailService>();
         services.AddSingleton<LoggerServiceBase, FileLogger>();
         services.AddSingleton<IElasticSearch, ElasticSearchManager>();
-
+         
         return services;
     }
 

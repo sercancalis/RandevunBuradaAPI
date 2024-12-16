@@ -9,7 +9,7 @@ using MediatR;
 using static Application.Features.Employees.Constants.EmployeeOperationClaims;
 namespace Application.Features.Employees.Commands.Create;
 
-public class CreateEmployeeCommand : IRequest<CreateEmployeeResponse>, ISecuredRequest, ICacheRemoverRequest
+public class CreateEmployeeCommand : IRequest<CreateEmployeeResponse>, ICacheRemoverRequest
 {
     public string UserId { get; set; }
     public int BusinessId { get; set; }
@@ -17,8 +17,6 @@ public class CreateEmployeeCommand : IRequest<CreateEmployeeResponse>, ISecuredR
     public bool BypassCache { get; }
     public string? CacheKey { get; }
     public string CacheGroupKey => "GetEmployees";
-
-    public string[] Roles => new[] { Admin, Write, Add };
 
     public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, CreateEmployeeResponse>
     {

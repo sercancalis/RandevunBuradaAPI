@@ -1,6 +1,7 @@
 ﻿using Application.Features.Business.Models;
 using Application.Services.ImageService;
 using Application.Services.Repositories;
+using Application.Services.User;
 using Application.Services.WorkingHourService;
 using AutoMapper;
 using Core.Application.Pipelines.Authorization;
@@ -13,6 +14,7 @@ namespace Application.Features.Business.Commands.Create;
 
 public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
 {
+    public string UserId { get; set; }
     public string Category { get; set; }
     public string Name { get; set; }
     public string Latitude { get; set; }
@@ -22,7 +24,8 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
     public string District { get; set; }
     public string Address { get; set; }
     public List<CreateWorkingHour> WorkingHours { get; set; }
-    public List<IFormFile> Images { get; set; } 
+    public List<IFormFile>? ImageFiles { get; set; }
+    public List<string>? ImageUrls { get; set; }
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }
@@ -36,8 +39,8 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
         private readonly IWorkingHourService _workingHourService;
         private readonly ImageServiceBase _imageServiceBase;
         private readonly IBusinessImageRepository _businessImageRepository;
-
-        public CreateBusinessCommandHandler(IMapper mapper, BusinessRules businessRules, IBusinessRepository businessRepository, IWorkingHourService workingHourService, ImageServiceBase imageServiceBase, IBusinessImageRepository businessImageRepository)
+        private readonly IUserService _userService;
+        public CreateBusinessCommandHandler(IMapper mapper, BusinessRules businessRules, IBusinessRepository businessRepository, IWorkingHourService workingHourService, ImageServiceBase imageServiceBase, IBusinessImageRepository businessImageRepository, IUserService userService)
         {
             _mapper = mapper;
             _businessRepository = businessRepository;
@@ -45,12 +48,14 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
             _workingHourService = workingHourService;
             _imageServiceBase = imageServiceBase;
             _businessImageRepository = businessImageRepository;
+            _userService = userService;
         }
 
         public async Task<bool> Handle(CreateBusinessCommand request, CancellationToken cancellationToken)
         {
             var business = new Domain.Entities.Business
             {
+                UserId = request.UserId,
                 Category = request.Category,
                 Name = request.Name,
                 Latitude = request.Latitude,
@@ -76,19 +81,37 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
             await _workingHourService.SaveWorkingHours(workingHours);
 
             var images = new List<BusinessImage>();
-            foreach (var item in request.Images)
+
+            if (request.ImageUrls != null && request.ImageUrls.Any())
             {
-                var imageRes = await _imageServiceBase.UploadAsync(item);
-                if(imageRes != null)
+                foreach (var item in request.ImageUrls)
+                {
                     images.Add(new BusinessImage
                     {
                         BusinessId = res.Id,
-                        ImageUrl = imageRes
+                        ImageUrl = item
                     });
+                }
+            }
+            if (request.ImageFiles != null && request.ImageFiles.Any())
+            {
+                foreach (var item in request.ImageFiles)
+                {
+                    var imageRes = await _imageServiceBase.UploadAsync(item);
+                    if (imageRes != null)
+                        images.Add(new BusinessImage
+                        {
+                            BusinessId = res.Id,
+                            ImageUrl = imageRes
+                        });
+                }
             }
 
             _businessImageRepository.AddRange(images);
-            
+
+            await _userService.SetUserRole(request.UserId, "boss");
+            await _userService.SetBusinessId(request.UserId, res.Id);
+            await _userService.AddUser(request.UserId, res.Id);
             return res != null;
         }
     }

@@ -17,6 +17,6 @@ public class WorkingHourConfiguration : IEntityTypeConfiguration<WorkingHour>
 
         builder.HasOne(p => p.Business).WithMany(p => p.WorkingHours).HasForeignKey(p => p.BusinessId).IsRequired();
 
-        builder.HasIndex(indexExpression: p => p.WorkingDay, name: "UK_WorkingHours_WorkingDay").IsUnique();
+        //builder.HasIndex(indexExpression: p => p.WorkingDay, name: "UK_WorkingHours_WorkingDay").IsUnique();
     }
 }

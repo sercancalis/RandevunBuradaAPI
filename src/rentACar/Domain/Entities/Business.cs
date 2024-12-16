@@ -5,6 +5,7 @@ namespace Domain.Entities
 {
     public class Business: Entity
     {
+        public string UserId { get; set; }
         public string Category { get; set; }
         public string Name { get; set; }
         public string Latitude { get; set; }
@@ -26,8 +27,9 @@ namespace Domain.Entities
             WorkingHours = new HashSet<WorkingHour>();
         }
 
-        public Business(string category, string name, string latitude, string longitude, string phoneNumber, string city, string district, string address, bool isConfirmed)
+        public Business(string userId, string category, string name, string latitude, string longitude, string phoneNumber, string city, string district, string address, bool isConfirmed)
         {
+            UserId = userId;
             Category = category;
             Name = name;
             Latitude = latitude;

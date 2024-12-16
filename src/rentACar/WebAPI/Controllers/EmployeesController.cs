@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Features.Employees.Commands.Create;
 using Application.Features.Employees.Commands.Update;
+using Application.Features.Employees.Queries.Get;
 using Application.Features.Employees.Queries.GetList;
 using Application.Features.Haidresser.GetList;
+using Application.Features.Users;
 using Core.Application.Requests;
 using Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +21,7 @@ namespace WebAPI.Controllers;
 public class EmployeesController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Create([FromQuery] CreateEmployeeCommand command)
+    public async Task<IActionResult> Create(CreateEmployeeCommand command)
     {
         CreateEmployeeResponse result = await Mediator.Send(command); 
         return Ok(result);
@@ -37,6 +39,13 @@ public class EmployeesController : BaseController
     { 
         GetBussinessEmployees res = new() { BusinessId = businessId };
         GetListResponse<GetListBusinessEmployeesResponse> result = await Mediator.Send(res);
+        return Ok(result);
+    }
+
+    [HttpGet("GetEmployeeByEmail")]
+    public async Task<IActionResult> GetEmployeeByEmail([FromQuery] GetEmployeeByEmail command)
+    {
+        GetListUsersResponse result = await Mediator.Send(command);
         return Ok(result);
     }
 }
