@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Services.Notifications;
 using Application.Services.User;
 using Application.Services.WorkingHourService;
 using Core.Application.Pipelines.Authorization;
@@ -41,6 +42,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IWorkingHourService, WorkingHourManager>();
         services.AddScoped<IUserService, UserManager>();
         services.AddHttpClient<IUserService, UserManager>();
+        services.AddScoped<INotificationService, NotificationManager>();
 
         services.AddSingleton<IMailService, MailKitMailService>();
         services.AddSingleton<LoggerServiceBase, FileLogger>();

@@ -36,9 +36,9 @@ public class BusinessesController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
+    public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest,string category)
     {
-        GetListBusiness res = new() { PageRequest = pageRequest };
+        GetListBusiness res = new() { PageRequest = pageRequest, Category = category };
         GetListResponse<GetListBusinessResponse> result = await Mediator.Send(res);
         return Ok(result);
     }

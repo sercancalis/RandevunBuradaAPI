@@ -15,6 +15,7 @@ namespace Application.Features.Business.Queries.GetList;
 
 public class GetListBusiness : IRequest<GetListResponse<GetListBusinessResponse>>, ICachableRequest
 {
+    public string Category { get; set; }
     public PageRequest PageRequest { get; set; }
     public bool BypassCache { get; }
 
@@ -39,7 +40,7 @@ public class GetListBusiness : IRequest<GetListResponse<GetListBusinessResponse>
             IPaginate<Domain.Entities.Business> res = await _businessRepository.GetListAsync(
                 index: request.PageRequest.Page,
                 size: request.PageRequest.PageSize,
-                predicate: x => x.IsActive,
+                predicate: x => x.IsActive && x.Category == request.Category,
                 include: x=> x.Include(a=>a.BusinessImages).Include(a=>a.WorkingHours)
             );
 

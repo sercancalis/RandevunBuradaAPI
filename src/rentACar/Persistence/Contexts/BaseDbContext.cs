@@ -14,6 +14,9 @@ public class BaseDbContext : DbContext
     public DbSet<Employee> Employees { get; set; }
     public DbSet<BusinessImage> BusinessImages { get; set; }
     public DbSet<WorkingHour> WorkingHours { get; set; }
+    public DbSet<BusinessService> BusinessServices { get; set; }
+    public DbSet<UserDevice> UserDevices { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
 
     public BaseDbContext(IConfiguration config)
     {

@@ -18,12 +18,14 @@ namespace Domain.Entities
 
         public virtual ICollection<Employee> Employees { get; set; }
         public virtual ICollection<BusinessImage> BusinessImages { get; set; }
+        public virtual ICollection<BusinessService> BusinessServices { get; set; }
         public virtual ICollection<WorkingHour> WorkingHours { get; set; }
 
         public Business()
         {
             Employees = new HashSet<Employee>();
             BusinessImages = new HashSet<BusinessImage>();
+            BusinessServices = new HashSet<BusinessService>();
             WorkingHours = new HashSet<WorkingHour>();
         }
 

@@ -19,6 +19,9 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IBusinessImageRepository, BusinessImageRepository>();
         services.AddScoped<IWorkingHourRepository, WorkingHourRepository>();
+        services.AddScoped<IBusinessServiceRepository, BusinessServiceRepository>();
+        services.AddScoped<IUserDeviceRepository, UserDeviceRepository>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
 
         return services;
     }

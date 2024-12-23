@@ -41,6 +41,24 @@
     <None Remove="Features\Users\Command\" />
     <None Remove="Features\Business\Queries\Get\" />
     <None Remove="Features\Employees\Queries\Get\" />
+    <None Remove="Features\BusinessServices\" />
+    <None Remove="Features\BusinessServices\Command\" />
+    <None Remove="Features\BusinessServices\Command\Create\" />
+    <None Remove="Features\BusinessServices\Rules\" />
+    <None Remove="Features\BusinessServices\Queries\" />
+    <None Remove="Features\BusinessServices\Queries\GetList\" />
+    <None Remove="Features\BusinessServices\Profiles\" />
+    <None Remove="Features\BusinessServices\Command\Update\" />
+    <None Remove="Features\UserDevices\" />
+    <None Remove="Features\UserDevices\Command\" />
+    <None Remove="Features\UserDevices\Command\Save\" />
+    <None Remove="Features\UserDevices\Profiles\" />
+    <None Remove="Services\Notifications\" />
+    <None Remove="Features\Notifications\" />
+    <None Remove="Features\Notifications\Command\" />
+    <None Remove="Features\Notifications\Command\Send\" />
+    <None Remove="Features\Notifications\Profiles\" />
+    <None Remove="Features\Notifications\GetList\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,5 +108,23 @@
     <Folder Include="Features\Users\Command\" />
     <Folder Include="Features\Business\Queries\Get\" />
     <Folder Include="Features\Employees\Queries\Get\" />
+    <Folder Include="Features\BusinessServices\" />
+    <Folder Include="Features\BusinessServices\Command\" />
+    <Folder Include="Features\BusinessServices\Command\Create\" />
+    <Folder Include="Features\BusinessServices\Rules\" />
+    <Folder Include="Features\BusinessServices\Queries\" />
+    <Folder Include="Features\BusinessServices\Queries\GetList\" />
+    <Folder Include="Features\BusinessServices\Profiles\" />
+    <Folder Include="Features\BusinessServices\Command\Update\" />
+    <Folder Include="Features\UserDevices\" />
+    <Folder Include="Features\UserDevices\Command\" />
+    <Folder Include="Features\UserDevices\Command\Save\" />
+    <Folder Include="Features\UserDevices\Profiles\" />
+    <Folder Include="Services\Notifications\" />
+    <Folder Include="Features\Notifications\" />
+    <Folder Include="Features\Notifications\Command\" />
+    <Folder Include="Features\Notifications\Command\Send\" />
+    <Folder Include="Features\Notifications\Profiles\" />
+    <Folder Include="Features\Notifications\GetList\" />
   </ItemGroup>
 </Project>
