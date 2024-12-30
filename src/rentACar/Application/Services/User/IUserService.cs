@@ -13,6 +13,7 @@ namespace Application.Services.User
         public Task SetBusinessId(string userId,int businessId);
         public Task<CreateEmployeeResponse> AddUser(string userId, int businessId);
         public Task<GetListUsersResponse> GetUserByEmail(string email);
+        public Task<string> GetAdminUserId();
     }
 }
 

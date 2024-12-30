@@ -17,6 +17,7 @@ public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
         builder.Property(p => p.SenderId).HasColumnName("SenderId");
         builder.Property(p => p.ReceiverId).HasColumnName("ReceiverId");
         builder.Property(p => p.NotificationType).HasColumnName("NotificationType");
+        builder.Property(p => p.Action).HasColumnName("Action");
 
         builder.HasIndex(indexExpression: p => p.ReceiverId, name: "UK_Notifications_ReceiverId");
     }

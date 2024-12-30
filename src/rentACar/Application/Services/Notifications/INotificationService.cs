@@ -8,6 +8,7 @@ namespace Application.Services.Notifications
     {
         public Task<bool> SendNotification(Notification notification);
         public Task<GetListResponse<Notification>> GetNotificationList(PageRequest pageRequest, string receiverId);
+        public Task<bool> NotificationAction(int id, bool action, string message);
     }
 }
 

@@ -59,6 +59,8 @@
     <None Remove="Features\Notifications\Command\Send\" />
     <None Remove="Features\Notifications\Profiles\" />
     <None Remove="Features\Notifications\GetList\" />
+    <None Remove="Features\Appointment\" />
+    <None Remove="Features\Appointment\Command\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -126,5 +128,7 @@
     <Folder Include="Features\Notifications\Command\Send\" />
     <Folder Include="Features\Notifications\Profiles\" />
     <Folder Include="Features\Notifications\GetList\" />
+    <Folder Include="Features\Appointment\" />
+    <Folder Include="Features\Appointment\Command\" />
   </ItemGroup>
 </Project>

@@ -168,6 +168,41 @@ namespace Application.Services.User
                 return null;
             }
         }
+
+        public async Task<string> GetAdminUserId()
+        {
+            try
+            {
+                var url = $"https://api.clerk.com/v1/users?email_address=sercancalis7@gmail.com";
+                // Add authorization header
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+
+                // Send the request
+                var response = await _httpClient.GetAsync(url);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Log the error or handle it accordingly
+                    return null;
+                }
+
+                // Parse the response content
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var users = JsonSerializer.Deserialize<List<GetListUsersResponse>>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if(users != null && users.Any())
+                {
+                    return users.Select(x => x.id).First();
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
 

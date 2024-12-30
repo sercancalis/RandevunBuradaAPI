@@ -19,7 +19,7 @@ public class GetListBusiness : IRequest<GetListResponse<GetListBusinessResponse>
     public PageRequest PageRequest { get; set; }
     public bool BypassCache { get; }
 
-    public string CacheKey => $"GetBusiness";
+    public string CacheKey => $"GetBusiness({PageRequest.Page},{PageRequest.PageSize},{Category})";
     public string CacheGroupKey => "GetListBusiness";
 
     public TimeSpan? SlidingExpiration { get; }
@@ -41,7 +41,7 @@ public class GetListBusiness : IRequest<GetListResponse<GetListBusinessResponse>
                 index: request.PageRequest.Page,
                 size: request.PageRequest.PageSize,
                 predicate: x => x.IsActive && x.Category == request.Category,
-                include: x=> x.Include(a=>a.BusinessImages).Include(a=>a.WorkingHours)
+                include: x=> x.Include(a=>a.BusinessImages).Include(a=>a.WorkingHours).Include(a=>a.BusinessServices)
             );
 
             return _mapper.Map<GetListResponse<GetListBusinessResponse>>(res);

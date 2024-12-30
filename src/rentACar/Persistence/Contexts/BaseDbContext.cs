@@ -17,6 +17,7 @@ public class BaseDbContext : DbContext
     public DbSet<BusinessService> BusinessServices { get; set; }
     public DbSet<UserDevice> UserDevices { get; set; }
     public DbSet<Notification> Notifications { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
     public BaseDbContext(IConfiguration config)
     {

@@ -24,8 +24,14 @@ public class MappingProfiles : Profile
         CreateMap<IPaginate<Domain.Entities.Business>, GetListResponse<GetListBusinessResponse>>().ReverseMap();
         CreateMap<Domain.Entities.Business, GetBusinessResponse>()
             .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(src => src.BusinessImages.Select(x => x.ImageUrl)))
+            .ForMember(dest => dest.BusinessServices, opt => opt.MapFrom(src => src.BusinessServices.Select(x => new BusinessServiceDto
+            {
+                Id = x.Id,
+                Name = x.Name
+            })))
             .ForMember(dest => dest.WorkingHours, opt => opt.MapFrom(src => src.WorkingHours.Select(x => new WorkingHoursDto
             {
+                Id = x.Id,
                 WorkingDay = x.WorkingDay,
                 Value = x.Value
             })

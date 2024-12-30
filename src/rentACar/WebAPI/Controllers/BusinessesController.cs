@@ -49,5 +49,13 @@ public class BusinessesController : BaseController
         GetBusinessResponse result = await Mediator.Send(request);
         return Ok(result);
     }
+
+    [HttpGet("GetBusinessById")]
+    public async Task<IActionResult> GetBusinessById([FromQuery] int id)
+    {
+        GetBusinessById res = new() { Id= id };
+        GetBusinessResponse result = await Mediator.Send(res);
+        return Ok(result);
+    }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Application.Features.Business.Models;
 using Application.Services.ImageService;
+using Application.Services.Notifications;
 using Application.Services.Repositories;
 using Application.Services.User;
 using Application.Services.WorkingHourService;
@@ -40,7 +41,8 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
         private readonly ImageServiceBase _imageServiceBase;
         private readonly IBusinessImageRepository _businessImageRepository;
         private readonly IUserService _userService;
-        public CreateBusinessCommandHandler(IMapper mapper, BusinessRules businessRules, IBusinessRepository businessRepository, IWorkingHourService workingHourService, ImageServiceBase imageServiceBase, IBusinessImageRepository businessImageRepository, IUserService userService)
+        private readonly INotificationService _notificationService;
+        public CreateBusinessCommandHandler(IMapper mapper, BusinessRules businessRules, IBusinessRepository businessRepository, IWorkingHourService workingHourService, ImageServiceBase imageServiceBase, IBusinessImageRepository businessImageRepository, IUserService userService, INotificationService notificationService)
         {
             _mapper = mapper;
             _businessRepository = businessRepository;
@@ -49,6 +51,7 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
             _imageServiceBase = imageServiceBase;
             _businessImageRepository = businessImageRepository;
             _userService = userService;
+            _notificationService = notificationService;
         }
 
         public async Task<bool> Handle(CreateBusinessCommand request, CancellationToken cancellationToken)
@@ -112,6 +115,19 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
             await _userService.SetUserRole(request.UserId, "boss");
             await _userService.SetBusinessId(request.UserId, res.Id);
             await _userService.AddUser(request.UserId, res.Id);
+
+            var admin = await _userService.GetAdminUserId();
+            if (admin != null)
+            {
+                await _notificationService.SendNotification(new Notification
+                {
+                    Title = "İşletme Kaydet",
+                    Body = $"{request.Name} işletmesinin kaydı için onayınız gerekmektedir.",
+                    NotificationType = Domain.Enums.NotificationType.SaveBusiness,
+                    SenderId = request.UserId,
+                    ReceiverId = admin, 
+                });
+            }
             return res != null;
         }
     }

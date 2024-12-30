@@ -28,6 +28,13 @@ namespace WebAPI.Controllers
             GetListResponse<Notification> result = await Mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPost("NotificationAction")]
+        public async Task<IActionResult> NotificationAction(NotificationActionCommand command)
+        {
+            bool result = await Mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
 

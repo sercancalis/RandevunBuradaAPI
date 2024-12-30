@@ -13,7 +13,7 @@ public class GetBusinessByUserId : IRequest<GetBusinessResponse>, ICachableReque
 {
     public string UserId { get; set; }
     public bool BypassCache { get; } 
-    public string CacheKey => $"GetBusiness({UserId})";
+    public string CacheKey => $"GetBusiness(UserId={UserId})";
     public string CacheGroupKey => "GetListBusiness"; 
     public TimeSpan? SlidingExpiration { get; }
 

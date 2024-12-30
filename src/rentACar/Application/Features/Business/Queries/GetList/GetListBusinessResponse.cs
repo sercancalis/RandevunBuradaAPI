@@ -5,6 +5,7 @@ namespace Application.Features.Business.Queries.GetList
 {
     public class GetListBusinessResponse
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
@@ -16,6 +17,7 @@ namespace Application.Features.Business.Queries.GetList
 
         public List<string> ImageUrls { get; set; }
         public List<WorkingHour> WorkingHours { get; set; }
+        public List<BusinessService> BusinessServices { get; set; }
     }
 }
 

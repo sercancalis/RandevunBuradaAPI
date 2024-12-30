@@ -11,18 +11,20 @@ namespace Domain.Entities
         public string SenderId { get; set; }
         public string? ReceiverId { get; set; }
         public NotificationType NotificationType { get; set; }
+        public bool? Action { get; set; }
 
         public Notification()
         {
         }
 
-        public Notification(string title, string body, string senderId, string? receiverId, NotificationType notificationType)
+        public Notification(string title, string body, string senderId, string? receiverId, NotificationType notificationType,bool action)
         {
             Title = title;
             Body = body;
             SenderId = senderId;
             ReceiverId = receiverId;
             NotificationType = notificationType;
+            Action = action;
         }
     }
 }

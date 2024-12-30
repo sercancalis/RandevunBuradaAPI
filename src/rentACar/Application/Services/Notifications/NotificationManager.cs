@@ -80,6 +80,37 @@ namespace Application.Services.Notifications
                 predicate: x => x.NotificationType == Domain.Enums.NotificationType.All || x.ReceiverId == receiverId);
             return _mapper.Map<GetListResponse<Notification>>(res);
         }
+
+        public async Task<bool> NotificationAction(int id, bool action, string message)
+        {
+            var notification = await _notificationRepository.GetAsync(x => x.Id == id);
+            if(notification != null)
+            {
+                if (notification.NotificationType == Domain.Enums.NotificationType.SaveBusiness)
+                {
+                    var title = "İşletme Kaydet";
+                    var body = "İşletmeniz kaydedilmiştir.";
+                    if(action == false)
+                    {
+                        body = "İşletmeniz reddedilmiştir. " + message;
+                    }
+
+                    await SendNotification(new Notification
+                    {
+                        Title = title,
+                        Body = body,
+                        SenderId = notification.ReceiverId!,
+                        ReceiverId = notification.SenderId,
+                        NotificationType = Domain.Enums.NotificationType.SaveBusiness,
+                        Action = action
+                    });
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
 

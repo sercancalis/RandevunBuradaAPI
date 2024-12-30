@@ -20,11 +20,19 @@ public class GetBusinessResponse
 
     public List<string> ImageUrls { get; set; }
     public List<WorkingHoursDto> WorkingHours { get; set; }
+    public List<BusinessServiceDto> BusinessServices { get; set; }
 
     public class WorkingHoursDto
     {
+        public int Id { get; set; }
         public WorkingDays WorkingDay { get; set; }
         public string Value { get; set; }
+    }
+
+    public class BusinessServiceDto
+    {
+        public int Id { get; set; } 
+        public string Name { get; set; }
     }
 }
 
