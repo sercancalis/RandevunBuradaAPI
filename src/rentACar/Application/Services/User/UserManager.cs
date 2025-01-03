@@ -74,35 +74,9 @@ namespace Application.Services.User
                 return res.total_count;
             }
             return 0; 
-        }
+        } 
 
-        public async Task SetUserRole(string userId, string role)
-        { 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
-
-            var content = new StringContent(
-                 JsonSerializer.Serialize(new
-                 {
-                     public_metadata = new
-                     {
-                         role = role
-                     }
-                 }),
-                 Encoding.UTF8,
-                 "application/json"
-             );
-
-            var response = await _httpClient.PatchAsync($"https://api.clerk.com/v1/users/{userId}", content);
-
-            // Başarı kontrolü
-            if (!response.IsSuccessStatusCode)
-            {
-                var responseContent = await response.Content.ReadAsStringAsync();
-                throw new HttpRequestException($"Failed to set user role. Status Code: {response.StatusCode}, Response: {responseContent}");
-            }
-        }
-
-        public async Task SetBusinessId(string userId, int businessId)
+        public async Task SetBusinessIdAndRole(string userId, int businessId, string role)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
@@ -111,7 +85,8 @@ namespace Application.Services.User
                  {
                      public_metadata = new
                      {
-                         businessId = businessId
+                         businessId = businessId,
+                         role= role
                      }
                  }),
                  Encoding.UTF8,

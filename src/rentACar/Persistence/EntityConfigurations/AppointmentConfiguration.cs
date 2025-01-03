@@ -16,7 +16,7 @@ public class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
         builder.Property(p => p.Date).HasColumnName("Date");
         builder.Property(p => p.Time).HasColumnName("Time");
         builder.Property(p => p.Services).HasColumnName("Services"); 
-        builder.Property(p => p.IsConfirmed).HasColumnName("IsConfirmed").HasDefaultValue<bool>(false);
+        builder.Property(p => p.IsConfirmed).HasColumnName("IsConfirmed");
 
         builder.HasOne(p => p.Business).WithMany(p => p.Appointments).HasForeignKey(p => p.BusinessId);
 

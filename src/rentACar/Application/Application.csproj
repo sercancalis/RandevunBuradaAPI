@@ -38,7 +38,6 @@
     <None Remove="Services\WorkingHourService\" />
     <None Remove="Services\User\" />
     <None Remove="Features\Business\Models\" />
-    <None Remove="Features\Users\Command\" />
     <None Remove="Features\Business\Queries\Get\" />
     <None Remove="Features\Employees\Queries\Get\" />
     <None Remove="Features\BusinessServices\" />
@@ -61,6 +60,9 @@
     <None Remove="Features\Notifications\GetList\" />
     <None Remove="Features\Appointment\" />
     <None Remove="Features\Appointment\Command\" />
+    <None Remove="Features\Appointment\Queries\" />
+    <None Remove="Features\Appointment\Queries\Get\" />
+    <None Remove="Features\Appointment\Profiles\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -107,7 +109,6 @@
     <Folder Include="Services\WorkingHourService\" />
     <Folder Include="Services\User\" />
     <Folder Include="Features\Business\Models\" />
-    <Folder Include="Features\Users\Command\" />
     <Folder Include="Features\Business\Queries\Get\" />
     <Folder Include="Features\Employees\Queries\Get\" />
     <Folder Include="Features\BusinessServices\" />
@@ -130,5 +131,8 @@
     <Folder Include="Features\Notifications\GetList\" />
     <Folder Include="Features\Appointment\" />
     <Folder Include="Features\Appointment\Command\" />
+    <Folder Include="Features\Appointment\Queries\" />
+    <Folder Include="Features\Appointment\Queries\Get\" />
+    <Folder Include="Features\Appointment\Profiles\" />
   </ItemGroup>
 </Project>

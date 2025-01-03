@@ -111,9 +111,8 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
             }
 
             _businessImageRepository.AddRange(images);
-
-            await _userService.SetUserRole(request.UserId, "boss");
-            await _userService.SetBusinessId(request.UserId, res.Id);
+             
+            await _userService.SetBusinessIdAndRole(request.UserId, res.Id, "boss");
             await _userService.AddUser(request.UserId, res.Id);
 
             var admin = await _userService.GetAdminUserId();
@@ -125,7 +124,9 @@ public class CreateBusinessCommand : IRequest<bool>, ICacheRemoverRequest
                     Body = $"{request.Name} işletmesinin kaydı için onayınız gerekmektedir.",
                     NotificationType = Domain.Enums.NotificationType.SaveBusiness,
                     SenderId = request.UserId,
-                    ReceiverId = admin, 
+                    ReceiverId = admin,
+                    Action = null,
+                    ActionId = res.Id
                 });
             }
             return res != null;

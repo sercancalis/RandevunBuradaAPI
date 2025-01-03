@@ -8,29 +8,22 @@ using MediatR;
 
 namespace Application.Features.Notifications.Command.Send;
 
-public class NotificationActionCommand : IRequest<bool>, ICacheRemoverRequest
+public class NotificationActionCommand : IRequest<bool>
 {
     public int Id { get; set; }
     public bool Action { get; set; }
-    public string Message { get; set; }  
-
-    public bool BypassCache { get; }
-    public string? CacheKey { get; }
-    public string CacheGroupKey => "GetNotificationList";
+    public string Message { get; set; }   
 
     public class NotificationActionCommandHandler : IRequestHandler<NotificationActionCommand, bool>
     {
-        private readonly INotificationService _notificationService;
-        private readonly IMapper _mapper;
-        public NotificationActionCommandHandler(INotificationService notificationService, IMapper mapper)
+        private readonly INotificationService _notificationService; 
+        public NotificationActionCommandHandler(INotificationService notificationService)
         {
-            _notificationService = notificationService;
-            _mapper = mapper;
+            _notificationService = notificationService; 
         }
 
         public async Task<bool> Handle(NotificationActionCommand request, CancellationToken cancellationToken)
-        {
-            var notificationData = _mapper.Map<Notification>(request);
+        {  
             return await _notificationService.NotificationAction(request.Id,request.Action,request.Message);
         }
     }

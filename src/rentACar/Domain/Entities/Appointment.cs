@@ -14,13 +14,13 @@ namespace Domain.Entities
         public DateTime Date { get; set; }
         public string Time { get; set; }
         public string Services { get; set; }
-        public bool IsConfirmed { get; set; }
+        public bool? IsConfirmed { get; set; }
 
         public Appointment()
         {
         }
 
-        public Appointment(int businessId, string userId, string personelId, DateTime date, string time, string services,bool isConfirmed)
+        public Appointment(int businessId, string userId, string personelId, DateTime date, string time, string services,bool? isConfirmed)
         {
             BusinessId = businessId;
             UserId = userId;

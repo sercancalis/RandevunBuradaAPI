@@ -7,17 +7,13 @@ using MediatR;
 
 namespace Application.Features.Notifications.Command.Send;
 
-public class SendNotificationCommand : IRequest<bool>, ICacheRemoverRequest
+public class SendNotificationCommand : IRequest<bool>
 {
     public string Title { get; set; }
     public string Body { get; set; }
     public string SenderId { get; set; }
     public string? ReceiverId { get; set; }
     public NotificationType NotificationType { get; set; }
-
-    public bool BypassCache { get; }
-    public string? CacheKey { get; }
-    public string CacheGroupKey => "GetNotificationList";
 
     public class SendNotificationCommandHandler : IRequestHandler<SendNotificationCommand, bool>
     {

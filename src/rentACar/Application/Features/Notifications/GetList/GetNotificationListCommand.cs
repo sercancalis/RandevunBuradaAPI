@@ -10,17 +10,11 @@ using MediatR;
 
 namespace Application.Features.Notifications.GetList;
 
-public class GetNotificationListCommand : IRequest<GetListResponse<Notification>>, ICachableRequest
+public class GetNotificationListCommand : IRequest<GetListResponse<Notification>>
 {
     public PageRequest PageRequest { get; set; }
     public string ReceiverId { get; set; }
-
-    public bool BypassCache { get; }
-    public string CacheKey => $"GetNotificationList({PageRequest.Page},{PageRequest.PageSize},{ReceiverId})";
-    public string CacheGroupKey => "GetNotificationList";
-
-    public TimeSpan? SlidingExpiration { get; }
-
+      
     public class GetNotificationListCommandHandler : IRequestHandler<GetNotificationListCommand, GetListResponse<Notification>>
     {
         private readonly INotificationService _notificationService;
