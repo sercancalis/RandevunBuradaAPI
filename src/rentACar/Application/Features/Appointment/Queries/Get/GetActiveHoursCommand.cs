@@ -45,7 +45,7 @@ public class GetActiveHoursCommand : IRequest<List<ActiveHoursResponse>>, ICacha
                 size:20,
                 predicate: x => x.BusinessId == request.BusinessId &&
                    x.PersonelId == request.PersonelId &&
-                   x.Date.Date == request.Date.Date);
+                   x.Date.Date == request.Date.Date && (x.IsConfirmed == null || x.IsConfirmed == false));
 
             // Generate time slots in 30-minute intervals
             var currentTime = startTime;
